@@ -13,7 +13,8 @@ Content-Type: application/json
 
 {
   "firstName": "John",
-  "lastName": "Doe"
+  "lastName": "Doe",
+  "email": "jdoe@gmail.com"
 }
 
 ### PUT
@@ -22,5 +23,6 @@ Content-Type: application/json
 
 {
   "firstName": "Linux",
-  "lastName": "Torvalds"
+  "lastName": "Torvalds",
+  "email": "ltorvalds@gmail.com"
 }

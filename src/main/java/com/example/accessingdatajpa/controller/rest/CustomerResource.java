@@ -1,6 +1,7 @@
 package com.example.accessingdatajpa.controller.rest;
 
 import com.example.accessingdatajpa.dto.CustomerDTO;
+import com.example.accessingdatajpa.expections.EmailNotValidException;
 import com.example.accessingdatajpa.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,12 +31,12 @@ public class CustomerResource {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerDTO c){
+    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerDTO c) throws EmailNotValidException {
         return ResponseEntity.ok(cs.addCustomer(c));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("id") Long id, @RequestBody CustomerDTO c){
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("id") Long id, @RequestBody CustomerDTO c) throws EmailNotValidException {
         CustomerDTO cdto = cs.updateCustomer(id, c);
         return ResponseEntity.ok(cdto);
     }

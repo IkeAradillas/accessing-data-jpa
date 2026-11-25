@@ -2,6 +2,7 @@ package com.example.accessingdatajpa.service;
 
 import com.example.accessingdatajpa.dto.CustomerDTO;
 import com.example.accessingdatajpa.model.Customer;
+import com.example.accessingdatajpa.expections.EmailNotValidException;
 import com.example.accessingdatajpa.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,16 +31,17 @@ public class CustomerService {
         return c.stream().map(customer -> new CustomerDTO(customer.getFirstName(), customer.getLastName(), customer.getEmail())).toList();
     }
 
-    public CustomerDTO addCustomer(CustomerDTO cdto) {
-        Customer c = new Customer(cdto.firstName(), cdto.lastName());
+    public CustomerDTO addCustomer(CustomerDTO cdto) throws EmailNotValidException {
+        Customer c = new Customer(cdto.firstName(), cdto.lastName(), cdto.email());
         c = cr.save(c);
         return new CustomerDTO(c.getFirstName(), c.getLastName(), c.getEmail());
     }
 
-    public CustomerDTO updateCustomer(Long id, CustomerDTO cdto) {
+    public CustomerDTO updateCustomer(Long id, CustomerDTO cdto) throws EmailNotValidException {
         Customer c = cr.findById(id).orElseThrow(() -> new RuntimeException("Customer not Found with id" + id));
         c.setFirstName(cdto.firstName());
         c.setLastName(cdto.lastName());
+        c.setEmail(cdto.email());
         cr.save(c);
         return new CustomerDTO(c.getFirstName(), c.getLastName(), c.getEmail());
     }

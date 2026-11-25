@@ -1,13 +1,9 @@
 package com.example.accessingdatajpa;
 
-import com.example.accessingdatajpa.model.Customer;
-import com.example.accessingdatajpa.repository.CustomerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class AccessingDataJpaApplication {
@@ -18,15 +14,21 @@ public class AccessingDataJpaApplication {
 		SpringApplication.run(AccessingDataJpaApplication.class, args);
 	}
 
+	/*
 	@Bean
 	public CommandLineRunner demo(CustomerRepository repository) {
 		return (args) -> {
 			// save a few customers
-			repository.save(new Customer("Jack", "Bauer"));
-			repository.save(new Customer("Chloe", "O'Brian"));
-			repository.save(new Customer("Kim", "Bauer"));
-			repository.save(new Customer("David", "Palmer"));
-			repository.save(new Customer("Michelle", "Dessler"));
+            try {
+                repository.save(new Customer("Jack", "Bauer", "jbauer@gmail.com"));
+				repository.save(new Customer("Chloe", "O'Brian", "cobrian@gmail.com"));
+				repository.save(new Customer("Kim", "Bauer", "kbauer@gmail.com"));
+				repository.save(new Customer("David", "Palmer", "dpalmer@gmail.com"));
+				repository.save(new Customer("Michelle", "Dessler", "mdessler@gmail.com"));
+            } catch (EmailNotValidException e) {
+                throw new EmailNotValidException("El email no es valido");
+            }
+
 
 			// fetch all customers
 			logger.info("Customers found with findAll():");
@@ -52,5 +54,5 @@ public class AccessingDataJpaApplication {
 			logger.info("");
 		};
 	}
-
+	*/
 }

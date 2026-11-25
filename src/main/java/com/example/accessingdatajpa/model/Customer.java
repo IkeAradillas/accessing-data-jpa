@@ -1,5 +1,6 @@
 package com.example.accessingdatajpa.model;
 
+import com.example.accessingdatajpa.expections.EmailNotValidException;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,9 +20,10 @@ public class Customer {
 
     protected Customer() {}
 
-    public Customer(String firstName, String lastName) {
+    public Customer(String firstName, String lastName, String email) throws EmailNotValidException {
         this.firstName = firstName;
         this.lastName = lastName;
+        setEmail(email);
     }
 
     @Override
@@ -55,8 +57,8 @@ public class Customer {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws EmailNotValidException {
         if (email.contains("@")) this.email = email;
-        else throw new RuntimeException("El email no es valido");
+        else throw new EmailNotValidException("El email no es valido");
     }
 }
