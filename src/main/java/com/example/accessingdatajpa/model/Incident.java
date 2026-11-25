@@ -1,6 +1,7 @@
 package com.example.accessingdatajpa.model;
 
 
+import com.example.accessingdatajpa.eEstat;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -18,12 +19,12 @@ public class Incident {
     @Column(name= "data_obertura", nullable = false)
     private LocalDateTime dataObertura = LocalDateTime.now();
     @Column(nullable = false)
-    private String estat; //
+    private eEstat estat;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="customer_id")
     private Customer c;
 
-    public Incident(String titol, String descripcio, String estat) {
+    public Incident(String titol, String descripcio, eEstat estat) {
         this.titol = titol;
         this.descripcio=descripcio;
         this.estat=estat;
@@ -64,11 +65,11 @@ public class Incident {
         this.dataObertura = dataObertura;
     }
 
-    public String getEstat() {
+    public eEstat getEstat() {
         return estat;
     }
 
-    public void setEstat(String estat) {
+    public void setEstat(eEstat estat) {
         this.estat = estat;
     }
 

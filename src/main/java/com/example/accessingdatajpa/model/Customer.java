@@ -3,6 +3,8 @@ package com.example.accessingdatajpa.model;
 import com.example.accessingdatajpa.expections.EmailNotValidException;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table (name="customers")
 public class Customer {
@@ -17,6 +19,9 @@ public class Customer {
 
     @Column(name = "email", unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch =FetchType.LAZY)
+    private List<Incident> i;
 
     protected Customer() {}
 
@@ -60,5 +65,13 @@ public class Customer {
     public void setEmail(String email) throws EmailNotValidException {
         if (email.contains("@")) this.email = email;
         else throw new EmailNotValidException("El email no es valido");
+    }
+
+    public List<Incident> getI() {
+        return i;
+    }
+
+    public void setI(List<Incident> i) {
+        this.i = i;
     }
 }

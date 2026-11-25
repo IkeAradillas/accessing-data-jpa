@@ -1,4 +1,6 @@
 package com.example.accessingdatajpa.dto;
 
-public record IncidentDTO(String titol, String descripcio, String estat, String dataObertura) {
+import com.example.accessingdatajpa.eEstat;
+
+public record IncidentDTO(String titol, String descripcio, eEstat estat, String dataObertura) {
 }

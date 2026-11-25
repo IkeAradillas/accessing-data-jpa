@@ -17,24 +17,24 @@ public class CustomerService {
 
     public List<CustomerDTO> getAllCustomers(){
         List<Customer> c = cr.findAll();
-        return c.stream().map(customer -> new CustomerDTO(customer.getFirstName(), customer.getLastName(), customer.getEmail())).toList();
+        return c.stream().map(customer -> new CustomerDTO(customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getI())).toList();
     }
 
 
     public CustomerDTO getCustomer(long id) {
         Customer c = cr.findById(id);
-        return new CustomerDTO(c.getFirstName(), c.getLastName(), c.getEmail());
+        return new CustomerDTO(c.getFirstName(), c.getLastName(), c.getEmail(), c.getI());
     }
 
     public List<CustomerDTO> getCustomerByLastName(String lastName) {
         List<Customer> c = cr.findByLastName(lastName);
-        return c.stream().map(customer -> new CustomerDTO(customer.getFirstName(), customer.getLastName(), customer.getEmail())).toList();
+        return c.stream().map(customer -> new CustomerDTO(customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getI())).toList();
     }
 
     public CustomerDTO addCustomer(CustomerDTO cdto) throws EmailNotValidException {
         Customer c = new Customer(cdto.firstName(), cdto.lastName(), cdto.email());
         c = cr.save(c);
-        return new CustomerDTO(c.getFirstName(), c.getLastName(), c.getEmail());
+        return new CustomerDTO(c.getFirstName(), c.getLastName(), c.getEmail(), c.getI());
     }
 
     public CustomerDTO updateCustomer(Long id, CustomerDTO cdto) throws EmailNotValidException {
@@ -43,23 +43,23 @@ public class CustomerService {
         c.setLastName(cdto.lastName());
         c.setEmail(cdto.email());
         cr.save(c);
-        return new CustomerDTO(c.getFirstName(), c.getLastName(), c.getEmail());
+        return new CustomerDTO(c.getFirstName(), c.getLastName(), c.getEmail(), c.getI());
     }
 
     public CustomerDTO deleteCustomer(Long id) {
         Customer c = cr.findById(id).orElseThrow(() -> new RuntimeException("Customer not Found with ID" + id));
-        return new CustomerDTO(c.getFirstName(), c.getLastName(), c.getEmail());
+        return new CustomerDTO(c.getFirstName(), c.getLastName(), c.getEmail(), c.getI());
     }
 
     public List<CustomerDTO> getCustomerByLastNameAndEmail(String lastName, String email) {
         List<Customer> cln = cr.findByLastName(lastName);
         List<Customer> ce = cr.findByEmail(email);
         cln.addAll(ce);
-        return cln.stream().map(customer -> new CustomerDTO(customer.getFirstName(), customer.getLastName(), customer.getEmail())).toList();
+        return cln.stream().map(customer -> new CustomerDTO(customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getI())).toList();
     }
 
     public List<CustomerDTO> getCustomerByEmail(String email) {
         List<Customer> ce = cr.findByEmail(email);
-        return ce.stream().map(customer -> new CustomerDTO(customer.getFirstName(), customer.getLastName(), customer.getEmail())).toList();
+        return ce.stream().map(customer -> new CustomerDTO(customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getI())).toList();
     }
 }
